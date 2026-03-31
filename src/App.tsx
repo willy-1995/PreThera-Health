@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import "./App.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Start from "./pages/start";
