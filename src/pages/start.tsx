@@ -15,6 +15,9 @@ const Start: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const totalSlides = 4;
 
+  //FOR GITHUB PAGES
+  const getAssetUrl = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
   //SLIDER
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,20 +53,28 @@ const Start: React.FC = () => {
           <h2>Ganzheitliches Gesundheitsmanagement - Digital und vor Ort!</h2>
           <div className="slider-div">
             <div className={`slider ${currentIndex === 0 ? "active" : ""}`}>
-              <img src="/media/AdobeStock_171923475-1270x729.jpg" alt="image" />
+              <img
+                src={getAssetUrl("media/AdobeStock_171923475-1270x729.jpg")}
+                alt="image"
+              />
             </div>
             <div className={`slider ${currentIndex === 1 ? "active" : ""}`}>
               <img
-                src="/media/2d1e0922b8e319de1070fccb90637815.jpeg"
+                src={getAssetUrl("media/2d1e0922b8e319de1070fccb90637815.jpeg")}
                 alt="image"
               />
             </div>
             <div className={`slider ${currentIndex === 2 ? "active" : ""}`}>
-              <img src="/media/massage_1150x640.jpg" alt="image" />
+              <img
+                src={getAssetUrl("media/massage_1150x640.jpg")}
+                alt="image"
+              />
             </div>
             <div className={`slider ${currentIndex === 3 ? "active" : ""}`}>
               <img
-                src="/media/online-ernaehrungsberatung-ernaehrungsberaterin-an-laptop-mit-Apfel.jpg"
+                src={getAssetUrl(
+                  "media/online-ernaehrungsberatung-ernaehrungsberaterin-an-laptop-mit-Apfel.jpg",
+                )}
                 alt="image"
               />
             </div>
