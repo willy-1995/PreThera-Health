@@ -1,12 +1,14 @@
 import "./App.scss";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// 1. Importiere createHashRouter statt createBrowserRouter
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import Start from "./pages/start";
 import Us from "./pages/us";
 import BGM from "./pages/bgm";
 import Studies from "./pages/publication";
 
 function App() {
-  const router = createBrowserRouter([
+  // 2. Nutze createHashRouter
+  const router = createHashRouter([
     {
       path: "/",
       element: <Start />,
@@ -28,6 +30,8 @@ function App() {
       element: <Studies />,
     },
   ]);
+  // HINWEIS: Beim HashRouter brauchst du KEINEN basename!
+  // Er ignoriert alles vor dem # automatisch.
 
   return <RouterProvider router={router} />;
 }

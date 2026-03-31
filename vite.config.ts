@@ -4,7 +4,7 @@ import babel from '@rolldown/plugin-babel'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: 'PreThera-Health',
+  base: '/PreThera-Health/',
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })
