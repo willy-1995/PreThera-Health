@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function PowerActive() {
   return (
     <div className="modal-component">

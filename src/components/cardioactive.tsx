@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function CardioActive() {
   return (
     <div className="modal-component">

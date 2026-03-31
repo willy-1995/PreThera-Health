@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function RehabCareOnko() {
   return (
     <div className="modal-component">

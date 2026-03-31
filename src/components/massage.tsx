@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Massage() {
   return (
     <div className="modal-component">
