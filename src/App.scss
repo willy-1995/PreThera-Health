@@ -1,0 +1,404 @@
+/* --- 1. VARIABLEN & MIXINS --- */
+$primary: #2c5f50;      //深 Dunkelgrün (Vertrauen & Natur)
+$secondary: #4a90e2;    // Blau (Professionalität)
+$accent: #e9f5f2;       // Sehr helles Mint für Hintergründe
+$text-dark: #2d3436;    // Fast Schwarz für Lesbarkeit
+$text-light: #636e72;   // Grau für Nebentexte
+$white: #ffffff;
+$shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+$transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+// Breakpoints
+$tablet: 768px;
+$mobile: 500px;
+
+@mixin tablet { @media (max-width: #{$tablet}) { @content; } }
+@mixin mobile { @media (max-width: #{$mobile}) { @content; } }
+
+/* --- 2. RESET & BASICS --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.6;
+  color: $text-dark;
+  background-color: #fafafa;
+  -webkit-font-smoothing: antialiased;
+}
+
+button{
+  padding: 2% 4%;
+  border-radius: 15px;
+  border: none;
+  font-size: 1.1rem;
+}
+
+li{
+  list-style: none;
+}
+
+//===============
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  position: relative;
+}
+
+h1, h2, h3 {
+  color: $primary;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+/* --- 3. NAVBAR (RESPONSIVE) --- */
+.navbar {
+  background: $white;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  box-shadow: $shadow;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  margin-bottom: 2rem;
+
+  .nav-brand {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $primary;
+    letter-spacing: -0.5px;
+    margin-right: 10px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: $text-dark;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: $transition;
+
+      &:hover { color: $secondary; }
+    }
+
+    @include tablet {
+      display: none; // Verstecken auf Tablet/Mobile
+      &.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: $white;
+        padding: 2rem;
+        gap: 1.5rem;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+        text-align: center;
+      }
+    }
+  }
+
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+
+    span {
+      width: 28px;
+      height: 3px;
+      background: $primary;
+      border-radius: 2px;
+      transition: $transition;
+    }
+
+    @include tablet { display: flex; }
+
+    &.open {
+      span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      span:nth-child(2) { opacity: 0; }
+      span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+  }
+}
+
+/* --- 4. MAIN CONTENT & GRIDS --- */
+main {
+  min-height: calc(100vh - 140px);
+  padding: 3rem 0;
+}
+
+.intro-div{
+  height: 250px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  h2{
+    z-index: 10;
+    position: absolute;
+    color: $white;
+    text-shadow: 0 0 5px grey;
+  }
+
+  .slider-div{
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    
+    .slider{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      // Sanfter Übergang
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      border-radius: 15px;
+
+      &.active {
+        opacity: 1;
+        z-index: 2;
+      }
+
+      img{
+        max-width: 100%;
+        object-fit: cover;
+        opacity: 1;
+        border-radius: 15px;
+      }
+    }
+  }
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+  p { color: $text-light; font-size: 1.2rem; max-width: 700px; margin: 0 auto; }
+  .hero-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    padding: 2rem 0;
+  }
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: $white;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  border: 1px solid #f0f0f0;
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: $shadow;
+    border-color: $accent;
+  }
+
+  h2{margin: 0;}
+  h3 { color: $secondary; margin-bottom: 1rem; }
+  p { color: $text-light; 
+    margin-bottom: 10px;
+  &:hover{
+    transition: all ease-in-out 200ms;
+    color: $secondary;
+    cursor: pointer;
+  }}
+  
+
+}
+
+/* --- 5. FOOTER --- */
+.footer {
+  background: $white;
+  padding: 3rem 0;
+  border-top: 1px solid #eee;
+  margin-top: 4rem;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+
+    @include tablet {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+  }
+
+  .footer-legal {
+    display: flex;
+    gap: 1.5rem;
+    
+    a {
+      text-decoration: none;
+      color: $text-light;
+      font-size: 0.9rem;
+      &:hover { color: $primary; }
+    }
+  }
+}
+
+/* --- 6. UTILITIES --- */
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: $primary;
+  color: $white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: $transition;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: lighten($primary, 10%);
+    transform: scale(1.02);
+  }
+}
+
+//MODAL
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); // Dunkler Hintergrund
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; // Höher als die Navbar (1000)
+  backdrop-filter: blur(5px); // Schicker Blur-Effekt
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-content {
+  background: $white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  box-shadow: $shadow;
+  animation: modalFadeIn 0.3s ease-out;
+
+  h2 {
+    color: $primary;
+  }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/*================================
+PAGE: US
+================================*/
+.team-img-div{
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgb(176, 174, 174);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  object-fit: cover;
+
+  img{
+    max-width: 100%;
+  }
+}
+
+.us-card{
+gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+}
+
+.staff-card{
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  flex-direction: column;
+
+  .staff{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 300px;
+}
+}
+
+/*
+=======================
+COMPONENT: CONTACT
+=======================
+*/
+
+.contact-btn{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+  z-index: 3000;
+  background-color: #e9f5f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $secondary;
+}
+
+
